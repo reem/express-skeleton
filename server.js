@@ -1,7 +1,7 @@
 var express = require('express');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
-var _ = require('lodash/dist/underscore');
+var _ = require('lodash/dist/lodash.underscore');
 
 var app = express();
 
