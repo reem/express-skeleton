@@ -83,15 +83,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-nodemon');
 
   grunt.registerTask('server-dev', function (target) {
-    // Running nodejs in a different process and displaying output on the main console
-    // var nodemon = grunt.util.spawn({
-    //      cmd: 'grunt',
-    //      grunt: true,
-    //      args: 'nodemon',
-    // });
-    // nodemon.stdout.pipe(process.stdout);
-    // nodemon.stderr.pipe(process.stderr);
-    
     grunt.task.run([ 'nodemon' ]);
     grunt.task.run([ 'watch' ]);
   });
@@ -106,20 +97,8 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', [
     'jshint',
-    'concat',
-    'uglify',
     'cssmin:minify'
   ]);
 
-  grunt.registerTask('upload', function() {
-    if(grunt.option('prod')) {
-      grunt.task.run(['shell:prodServer']);
-    } else {
-      grunt.task.run([ 'server-dev' ]);
-    }
-  });
-
-  grunt.registerTask('deploy', ['build', 'upload']);
-
-
+  grunt.registerTask('deploy', ['build', 'server-dev']);
 };
