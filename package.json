@@ -1,0 +1,22 @@
+{
+  "name": "ng-news",
+  "version": "0.1.0",
+  "description": "a hacker news clone in angular",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ng",
+    "hacker",
+    "news"
+  ],
+  "author": "Jonathan Reem",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.2.0",
+    "express": "^4.2.0",
+    "lodash": "^2.4.1",
+    "morgan": "^1.0.1"
+  }
+}
