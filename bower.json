@@ -18,6 +18,5 @@
   ],
   "dependencies": {
     "lodash": "~2.4.1",
-    "angular": "~1.2.16"
   }
 }

@@ -61,8 +61,8 @@ module.exports = function(grunt) {
         ],
         tasks: [
           'jshint',
-          // 'concat',
-          // 'uglify'
+          'concat',
+          'uglify'
         ]
       },
       options: {
@@ -91,12 +91,10 @@ module.exports = function(grunt) {
   // Main grunt tasks
   ////////////////////////////////////////////////////
 
-  grunt.registerTask('test', [
-    'mochaTest'
-  ]);
-
   grunt.registerTask('build', [
     'jshint',
+    'concat',
+    'uglify',
     'cssmin:minify'
   ]);
 
