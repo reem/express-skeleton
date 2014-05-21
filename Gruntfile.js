@@ -2,16 +2,6 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    concat: {
-      options: {
-        separator: ';'
-      },
-      dist: {
-        src: 'public/client/**/*.js',
-        dest: 'public/dist/concat.js'
-      }
-    },
-
     nodemon: {
       dev: {
         script: 'server.js'
@@ -38,7 +28,7 @@ module.exports = function(grunt) {
         jshintrc: '.jshintrc',
         ignores: [
           'public/lib/**/*.js',
-          'public/dist/**/*.js'
+          'public/dist/**/*.js',
         ]
       }
     },
@@ -61,8 +51,8 @@ module.exports = function(grunt) {
         ],
         tasks: [
           'jshint',
-          'concat',
-          'uglify'
+          'browserify:dev',
+          'cssmin:minify'
         ]
       },
       options: {
@@ -73,6 +63,17 @@ module.exports = function(grunt) {
         tasks: ['cssmin']
       }
     },
+
+    browserify: {
+      main: {
+        src: ['public/client/**/*.js'],
+        dest: 'public/dist/concat.js'
+      },
+      dev: {
+        src: ['public/client/**/*.js'],
+        dest: 'public/dist/built.min.js'
+      }
+    }
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -80,11 +81,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-nodemon');
 
   grunt.registerTask('server-dev', function (target) {
     grunt.task.run([ 'nodemon' ]);
-    grunt.task.run([ 'watch' ]);
   });
 
   ////////////////////////////////////////////////////
@@ -93,10 +94,17 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', [
     'jshint',
-    'concat',
+    'browserify:main',
     'uglify',
     'cssmin:minify'
   ]);
 
+  grunt.registerTask('build-dev', [
+    'jshint',
+    'browserify:dev',
+    'cssmin:minify'
+  ]);
+
   grunt.registerTask('deploy', ['build', 'server-dev']);
+  grunt.registerTask('deploy-dev', ['build-dev', 'server-dev']);
 };
